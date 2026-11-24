@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For Aya 🐱</title>
+<style>
+:root{--bg:#fff5f7;--card:#ffffff;--text:#4a3340;--muted:#8a6f7c;--accent:#e86a92;--accent2:#ffd6e2;color-scheme:light;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1e1519;--card:#2a1d23;--text:#f6e6ec;--muted:#c4a3b0;--accent:#ff86a9;--accent2:#4a2a37;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1e1519;--card:#2a1d23;--text:#f6e6ec;--muted:#c4a3b0;--accent:#ff86a9;--accent2:#4a2a37;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Georgia,"Times New Roman",serif;line-height:1.6;overflow-x:hidden}
+main{max-width:640px;margin:0 auto;padding:32px 20px 64px}
+section{text-align:center;margin-bottom:48px}
+.hero{padding-top:24px}
+.cat{font-size:64px;display:block;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px)}}
+h1{font-size:clamp(36px,10vw,56px);margin:8px 0;color:var(--accent);font-weight:normal}
+.sub{color:var(--muted);font-style:italic;margin:0}
+h2{font-weight:normal;font-size:24px;margin:0 0 16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--accent2);border-radius:18px;padding:20px 14px}
+.card b{display:block;font-size:30px;margin-bottom:4px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.note{background:var(--card);border-radius:18px;padding:24px;border:1px solid var(--accent2);font-size:18px}
+.ask{background:var(--card);border-radius:24px;padding:36px 20px;border:2px solid var(--accent);min-height:260px;position:relative}
+.ask h2{font-size:clamp(24px,7vw,34px);color:var(--accent)}
+.btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:24px;min-height:64px}
+button{font:inherit;font-size:18px;border:0;border-radius:999px;padding:12px 28px;cursor:pointer}
+#yes{background:var(--accent);color:#fff;transition:transform .2s}
+#no{background:var(--accent2);color:var(--text);transition:transform .2s}
+#yes:hover{transform:scale(1.08)}
+#no.run{position:fixed;z-index:5}
+#win{display:none}
+#win .cat{font-size:80px}
+.hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.hearts span{position:absolute;bottom:-40px;animation:up 4s linear forwards;font-size:28px}
+@keyframes up{to{transform:translateY(-110vh) rotate(30deg);opacity:0}}
+footer{text-align:center;color:var(--muted);font-size:14px}
+</style>
+</head>
+<body>
+<main>
+<section class="hero">
+<span class="cat">🐱</span>
+<h1>Hi, Aya</h1>
+<p class="sub">I made this little page just for you.</p>
+</section>
+
+<section>
+<h2>Things I admire about you</h2>
+<div class="cards">
+<div class="card"><b>🌸</b><p>You are kind to everyone you meet</p></div>
+<div class="card"><b>🌙</b><p>Your calm presence makes any day softer</p></div>
+<div class="card"><b>🐾</b><p>You love cats, and it shows your gentle heart</p></div>
+<div class="card"><b>🩺</b><p>You’re studying to care for others, and that’s beautiful</p></div>
+</div>
+</section>
+
+<section>
+<div class="note">Someone who cares for patients, loves cats and stays calm in a busy world is rare. I’d love to be the person who cares for you in return.</div>
+</section>
+
+<section>
+<div class="ask" id="ask">
+<span class="cat">💌</span>
+<h2>Aya, will you be my girlfriend?</h2>
+<div class="btns">
+<button id="yes">Yes 💖</button>
+<button id="no">Not yet 🙈</button>
+</div>
+</div>
+<div class="ask" id="win">
+<span class="cat">😻</span>
+<h2>You said yes! 🎉</h2>
+<p class="sub">You just made me the happiest person. Let’s celebrate with coffee, and maybe a visit to a cat café?</p>
+</div>
+</section>
+<footer>Made with 💗 for Aya</footer>
+</main>
+<div class="hearts" id="hearts"></div>
+<script>
+var no=document.getElementById('no'),yes=document.getElementById('yes');
+function dodge(){
+  no.classList.add('run');
+  var w=window.innerWidth-no.offsetWidth-20,h=window.innerHeight-no.offsetHeight-20;
+  no.style.left=Math.max(10,Math.random()*w)+'px';
+  no.style.top=Math.max(10,Math.random()*h)+'px';
+}
+no.addEventListener('mouseenter',dodge);
+no.addEventListener('touchstart',function(e){e.preventDefault();dodge();});
+no.addEventListener('click',dodge);
+yes.addEventListener('click',function(){
+  document.getElementById('ask').style.display='none';
+  no.style.display='none';
+  document.getElementById('win').style.display='block';
+  var box=document.getElementById('hearts'),em=['💖','🐱','💗','🐾','😻','✨'];
+  for(var i=0;i<40;i++){
+    var s=document.createElement('span');
+    s.textContent=em[i%em.length];
+    s.style.left=Math.random()*100+'%';
+    s.style.animationDelay=(Math.random()*2)+'s';
+    box.appendChild(s);
+  }
+});
+</script>
+</body>
+</html>
